@@ -45,17 +45,6 @@ static void configspi(int fd, const enum spi_selchip chipidx,\
     ioctl(fd,Cmd_Selchip,chipidx);
 }
 
-static void enbale_epcs(void)
-{
-   gpio_export(PIN_AS_MODE);
-   gpio_direction(PIN_AS_MODE,OUT);    // GPIO为输出状态
-   gpio_write(PIN_AS_MODE,HIGH_LEVEL); //输出高电平
-   gpio_export(PIN_EPCS_CONFIG);
-   gpio_direction(PIN_EPCS_CONFIG,OUT);   // GPIO为输出状态
-   gpio_write(PIN_EPCS_CONFIG,LOW_LEVEL); //输出低电平
-}
-
-
 static void testspi(int fd,const enum spi_selchip chipidx,\
             const unsigned short *pdata,const int len)
 {
@@ -181,7 +170,6 @@ int main(int argc,char *argv[])
 		break;
 		case 2:
 		{
-          enbale_epcs();
 		  configspi(fd,Sel_chip0,format_8bit,Cs_active_hold);
 		  testepcs(fd);
 		}
